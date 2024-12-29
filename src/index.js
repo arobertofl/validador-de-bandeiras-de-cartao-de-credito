@@ -1,13 +1,28 @@
-const readline = require('readline');
+const express = require('express');
+const bodyParser = require('body-parser');
 const { validateCreditCard } = require('./validators/creditCardValidator');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+const app = express();
+const port = 3000;
+
+app.use(bodyParser.json());
+
+app.post('/validate-card', (req, res) => {
+    const { cardNumber } = req.body;
+
+    if (!cardNumber) {
+        return res.status(400).json({ error: 'Card number is required' });
+    }
+
+    const result = validateCreditCard(cardNumber);
+
+    if (result.error) {
+        return res.status(400).json({ error: result.error });
+    }
+
+    res.json({ cardType: result });
 });
 
-rl.question('Please enter a credit card number: ', (cardNumber) => {
-    const result = validateCreditCard(cardNumber);
-    console.log(result);
-    rl.close();
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
