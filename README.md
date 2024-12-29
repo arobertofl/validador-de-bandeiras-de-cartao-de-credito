@@ -19,23 +19,53 @@ credit-card-validator
 Para começar, clone o repositório e instale as dependências:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/arobertofl/validador-de-bandeiras-de-cartao-de-credito.git
 cd credit-card-validator
 npm install
 ```
 
 ## Uso
 
-Para validar um número de cartão de crédito, você pode usar a função `validateCreditCard` do arquivo `creditCardValidator.js`.
+Para iniciar o servidor, você pode usar o comando `npm start` para iniciar o servidor normalmente ou `npm run dev` para iniciar o servidor com `nodemon`, que reiniciará automaticamente o servidor sempre que houver uma alteração nos arquivos.
 
-### Exemplo
+### Iniciar o servidor
 
-```javascript
-const { validateCreditCard } = require('./validators/creditCardValidator');
+Para iniciar o servidor normalmente:
+```bash
+npm start
+```
 
-const cardNumber = '4111111111111111'; // Número de cartão de exemplo
-const result = validateCreditCard(cardNumber);
-console.log(result); // Exibe a bandeira do cartão ou uma mensagem de erro
+Para iniciar o servidor em modo de desenvolvimento com `nodemon`:
+```bash
+npm run dev
+```
+
+### API de Validação de Cartão de Crédito
+
+Você pode enviar uma solicitação POST para `http://localhost:3000/validate-card` com um corpo JSON contendo o número do cartão de crédito:
+
+```json
+{
+    "cardNumber": "4111111111111111"
+}
+```
+
+A API retornará um JSON com a bandeira do cartão ou um erro de validação.
+
+### Exemplo de Resposta
+
+#### Sucesso
+```json
+{
+    "cardType": "visa"
+}
+```
+
+#### Erro
+```json
+{
+    "error": "Invalid card number"
+}
 ```
 
 ## Contribuindo
