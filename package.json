@@ -1,0 +1,13 @@
+{
+  "name": "credit-card-validator",
+  "version": "1.0.0",
+  "description": "A simple Node.js application for validating credit card brands.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
